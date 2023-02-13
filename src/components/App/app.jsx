@@ -6,23 +6,42 @@ import Logo from '../Logo/logo';
 import Search from '../Search/search';
 import Sort from '../Sort/sort';
 import './index.css';
-import data from '../../assets/data.json';
+// import data from '../../assets/data.json';
 import SeachInfo from '../SeachInfo';
 import Button from '../Button/button';
+import api from '../../utils/api';
+import useDebounce from '../../hooks/useDebounce';
+import { isLiked } from '../../utils/product';
 
 function App() {
-  const [cards, setCards] = useState(data);
+  const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentUser, setCurrentUser] = useState(null)
+  const debounceSearchQuery = useDebounce(searchQuery, 300)
 
   const handleRequest = () => {
-    const filterCards = data.filter( item => item.name.toUpperCase().includes(searchQuery.toUpperCase()));
-    setCards(filterCards);
+    // const filterCards = cards.filter( item => item.name.toUpperCase().includes(searchQuery.toUpperCase()));
+    // setCards(filterCards);
+    api.search(debounceSearchQuery)
+      .then((searchResult)=> {
+        setCards(searchResult)
+      })
+      .catch( err => console.log(err))
   }
+
+  useEffect(() => {
+    Promise.all([api.getProductList(), api.getUserInfo()])
+      .then(([productsData, userData])=> {
+        setCurrentUser(userData)
+        setCards(productsData.products)
+      })
+      .catch( err => console.log(err))
+  },[])
 
   useEffect(()=>{
     handleRequest()
-    console.log("INPUT", searchQuery);
-  },[searchQuery])
+    console.log("INPUT", debounceSearchQuery);
+  },[debounceSearchQuery])
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -33,19 +52,40 @@ function App() {
     setSearchQuery(inputValue);
   }
 
+  function handleUpdateUser(userUpdateData) {
+    api.setUserInfo(userUpdateData)
+      .then((newUserData) => {
+        setCurrentUser(newUserData)
+      })
+  }
+
+  function handleProductLike(product) {
+    const liked = isLiked(product.likes, currentUser._id)
+    api.changeLikeProduct(product._id, liked)
+      .then((newCard) => {
+        const newProducts = cards.map(cardState => {
+          console.log('Карточка из стейта', cardState);
+          console.log('Карточка c сервера', newCard);
+          return cardState._id === newCard._id ? newCard : cardState
+        })
+
+        setCards(newProducts);
+      })
+  }
+
   return (
     <>
-      <Header>
+      <Header user={currentUser} onUpdateUser={handleUpdateUser}>
         <>
           <Logo className="logo logo_place_header" href="/" />
           <Search onSubmit={handleFormSubmit} onInput={handleInputChange}/>
         </>
       </Header>
       <main className='content container'>
-      <SeachInfo searchCount={cards.length} searchText={searchQuery}/>
-       <Sort/>
+        <SeachInfo searchCount={cards.length} searchText={searchQuery}/>
+        <Sort/>
         <div className='content__cards'>
-         <CardList goods={cards}/>
+         <CardList goods={cards} onProductLike={handleProductLike} currentUser={currentUser}/>
         </div>
       </main>
       <Footer/>
