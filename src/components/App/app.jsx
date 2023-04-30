@@ -17,12 +17,14 @@ import { CardContext } from '../../context/cardContext';
 import { FaqPage } from '../../pages/FAQPage/faq-page';
 import { FavoritePage } from '../../pages/FavoritePage/favorite-page';
 import Sort from '../Sort/sort';
+import { SortContext } from "../../context/sortContext";
 
 function App() {
   const [cards, setCards] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentUser, setCurrentUser] = useState(null)
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTabId, setSelectedTabId] = useState("cheap");
   const debounceSearchQuery = useDebounce(searchQuery, 300);
   const [favorites, setFavorites] = useState([]);
 
@@ -96,6 +98,7 @@ function App() {
   }, [currentUser, cards])
 
   return (
+    <SortContext.Provider value={{selectedTabId, setSelectedTabId}}>
       <UserContext.Provider value={{ user: currentUser, isLoading }}>
         <CardContext.Provider value={{ cards, favorites, handleLike: handleProductLike }}>
           <Header>
@@ -132,6 +135,7 @@ function App() {
           <Footer />
         </CardContext.Provider>
       </UserContext.Provider>
+    </SortContext.Provider>
   )
 }
 
