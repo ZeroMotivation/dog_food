@@ -22,9 +22,6 @@ function Header({children}) {
             <Link>
               <CartIcon />
             </Link>
-            <Link>
-              <ProfileIcon />
-            </Link>
           </div>
         </div>
       </div>

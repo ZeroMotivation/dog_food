@@ -16,6 +16,7 @@ import { UserContext } from '../../context/userContext';
 import { CardContext } from '../../context/cardContext';
 import { FaqPage } from '../../pages/FAQPage/faq-page';
 import { FavoritePage } from '../../pages/FavoritePage/favorite-page';
+import Sort from '../Sort/sort';
 
 function App() {
   const [cards, setCards] = useState([]);
