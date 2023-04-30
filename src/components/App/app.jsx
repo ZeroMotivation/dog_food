@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Footer } from "../Footer/footer";
 import { Header } from "../Header/Header";
-import "./App.scss";
+import "./index.sass";
 import { api } from "../../utils/api";
 import { findLike, useDebounce } from "../../utils/utils";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
