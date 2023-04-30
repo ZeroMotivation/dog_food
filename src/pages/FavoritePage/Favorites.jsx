@@ -4,7 +4,7 @@ import { CardList } from "../../components/CardList/card-list";
 import { CardContext } from "../../context/cardContext";
 import "./index.css";
 
-export const FavoritePage = () => {
+export const Favorites = () => {
   const { favorites } = useContext(CardContext);
 
   const navigate = useNavigate();

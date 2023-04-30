@@ -9,7 +9,7 @@ import { api } from "../../utils/api";
 import {
   useNavigate,
 } from "react-router-dom";
-import { Rating } from "../Rating/Rating";
+import { Rating } from "../Rating/rating";
 import { Form } from "../Form/Form";
 import { useForm } from "react-hook-form";
 import { BaseButton } from "../BaseButton/BaseButton";

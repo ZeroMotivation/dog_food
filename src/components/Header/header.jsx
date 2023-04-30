@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Logo } from "../Logo/Logo";
-import { Search } from "../Search/Search";
+import Logo from "../Logo/logo";
+import { Search } from "../Search/search";
 import "./style.css";
 
 import IconBasket from "./basketMaterial/BasketMaterial";
