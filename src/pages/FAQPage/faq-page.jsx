@@ -44,7 +44,6 @@ const dataFAQ = [
 ]
 
 export const FaqPage = () => {
-    
     return (
     <>
         <h1>Часто спрашивают</h1>
@@ -53,5 +52,4 @@ export const FaqPage = () => {
         }
     </>
     );
-    
-} 
+}

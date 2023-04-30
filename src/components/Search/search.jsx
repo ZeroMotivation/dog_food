@@ -6,15 +6,14 @@ import { useState } from 'react';
 
 function Search({onSubmit: propsOnSubmit, onInput}) {
   const [inputText, setInputText] = useState('')
-  
+
   const handleInput = (e) => {
     setInputText(e.target.value)
     onInput && onInput(e.target.value)
   }
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    propsOnSubmit(inputText)
-    // setInputText("")
+    propsOnSubmit(inputText);
   }
 
   const handleClearInput = (e) => {

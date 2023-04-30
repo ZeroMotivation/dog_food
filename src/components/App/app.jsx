@@ -4,7 +4,6 @@ import Header from '../Header/header';
 import Logo from '../Logo/logo';
 import Search from '../Search/search';
 import './index.css';
-// import data from '../../assets/data.json';
 import SeachInfo from '../SeachInfo';
 import api from '../../utils/api';
 import useDebounce from '../../hooks/useDebounce';
@@ -47,7 +46,7 @@ function App() {
         setCurrentUser(userData);
         setCards(productsData.products);
         const favoriteProducts = productsData.products.filter(item => isLiked(item.likes, userData._id));
-        setFavorites(prevSate => favoriteProducts)
+        setFavorites(_ => favoriteProducts)
       })
       .catch(err => console.log(err))
       .finally(() => {
@@ -124,11 +123,10 @@ function App() {
               } />
               <Route path='/faq' element={<FaqPage />} />
               <Route path='/favorites' element={
-                <FavoritePage/>} 
+                <FavoritePage/>}
               />
               <Route path='*' element={<NotFoundPage />} />
             </Routes>
-
           </main>
           <Footer />
         </CardContext.Provider>

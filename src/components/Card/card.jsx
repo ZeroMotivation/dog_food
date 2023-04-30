@@ -17,15 +17,14 @@ const Card = ({ name, price, _id, likes, discount, wight, description, pictures,
 	const discount_price = calcDiscountPrice(price, discount);
 	const liked = isLiked(likes, currentUser?._id)
 
-
 	function handleLikeClick(){
 		onProductLike({_id, likes})
 	}
 
 	return (
 		<>
-			{ isLoading 
-				?	<ContentLoader 
+			{ isLoading
+				?	<ContentLoader
 						speed={2}
 						width={186}
 						height={385}
@@ -60,9 +59,7 @@ const Card = ({ name, price, _id, likes, discount, wight, description, pictures,
 								<p className="card__name">{name}</p>
 							</div>
 						</Link>
-						<a href="#" className="card__cart btn btn_type_primary">
-							В корзину
-						</a>
+						<a href="#" className="card__cart btn btn_type_primary">В корзину</a>
 					</div>
 			}
 		</>

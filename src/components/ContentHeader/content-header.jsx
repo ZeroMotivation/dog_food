@@ -3,7 +3,7 @@ import s from './index.module.css';
 
 export const ContentHeader = ({title, children}) => {
     const navigate = useNavigate();
-    
+
     return (
         <div>
             <a href="#" className={s.buttonBack} onClick={() => navigate(-1)}>Назад</a>
@@ -11,4 +11,4 @@ export const ContentHeader = ({title, children}) => {
             {children}
         </div>
     )
-} 
+}

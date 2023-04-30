@@ -2,15 +2,15 @@ import cn from "classnames";
 import "./index.css";
 const Sort = ({currentSort, tabs = [], onChangeSort}) => {
 	const handleClick = (e, tab) => {
-		e.preventDefault(); 
+		e.preventDefault();
 		onChangeSort(tab.id)
 	}
 	return (
 		<div className="sort content__sort">
 			{tabs.map(tab => (
-				<div 
-					className={cn("sort__link", { 
-						"sort__link_selected": currentSort === tab.id 
+				<div
+					className={cn("sort__link", {
+						"sort__link_selected": currentSort === tab.id
 					})}
 					key={tab.id}
 					id={tab.id}
@@ -20,7 +20,6 @@ const Sort = ({currentSort, tabs = [], onChangeSort}) => {
 					</a>
 				</div>
 			))}
-
 		</div>
 	);
 };
