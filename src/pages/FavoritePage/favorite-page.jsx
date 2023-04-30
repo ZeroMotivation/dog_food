@@ -1,20 +1,25 @@
 import { useContext } from "react";
-import CardList from "../../components/CardList/card-list"
-import { ContentHeader } from "../../components/ContentHeader/content-header";
-import Sort from "../../components/Sort/sort"
-import Spinner from "../../components/Spinner"
+import { useNavigate } from "react-router-dom";
+import { CardList } from "../../components/CardList/card-list";
 import { CardContext } from "../../context/cardContext";
-
+import "./index.css";
 
 export const FavoritePage = () => {
-    const { favorites } = useContext(CardContext);
-    return (
-        <>
-            <ContentHeader title="Избранное"/>
-            <Sort />
-            <div className='content__cards'>
-                <CardList cards={favorites}/>
-            </div>
-        </>
-    )
-}
+  const { favorites } = useContext(CardContext);
+
+  const navigate = useNavigate();
+
+  return (
+    <div className="favorites">
+      <span className="favorites__back" onClick={() => navigate(-1)}>
+        {"< "}Back
+      </span>
+      <h1>Избранное</h1>
+      {!!favorites.length ? (
+        <CardList cards={favorites} />
+      ) : (
+        <div className="not-found">Вы не добавили еще ни одного товара</div>
+      )}
+    </div>
+  );
+};

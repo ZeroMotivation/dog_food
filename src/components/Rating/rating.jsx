@@ -1,50 +1,50 @@
-import cn  from "classnames";
+import { useCallback, useEffect, useState } from "react";
+import { ReactComponent as Star } from "./star.svg";
+import cn from "classnames";
 import s from './index.module.css'
-import { useEffect, useState, useCallback } from "react";
-import { ReactComponent as StarIcon } from "./star.svg";
+
+export const Rating = ({ rate, setRate, isEditable = false }) => {
+    // создаем пустые реакт фрагменты, чтобы потом в них положить свг
+    const emptyFragments = new Array(5).fill(<></>);
+    const [ratingArr, setRatingArr] = useState(emptyFragments);
 
 
-export const Rating = ({isEditable = false, rating, setRating = null}) => {
-    const [ratingArray, setRatingArray] = useState(new Array(5).fill(<></>));
-
-    const constructRating = useCallback((currentRating) => {
-        const updateArray = ratingArray.map((ratingElement, index) => {
-            return (
-                <StarIcon
-                    className={cn(s.star, {
-                        [s.filled]: index < currentRating,
-                        [s.editable]: isEditable
-                    })}
-                    onMouseEnter={()=>changeDisplay(index + 1)}
-                    onMouseLeave={()=>changeDisplay(rating)}
-                    onClick={() => changeRating(index + 1)}
-
-                />
-            )
-        })
-        setRatingArray(updateArray)
-    },[rating, isEditable])
-    
-    const changeDisplay = (rating) => {
-        if(!isEditable) return
-        constructRating(rating)
+    const changeDisplay = (rate) => {
+        // setRate(rate)
+        if (!isEditable) return;
+        constructRating(rate);
     }
 
-    const changeRating = (rating) => {
-        if(!isEditable || !setRating) return
-
-        setRating(rating)
+    const changeRating = (r) => {
+        if (!isEditable) return;
+        setRate(r);
     }
+
+    const constructRating = useCallback((rating) => {
+        const updatedArray = ratingArr.map((ratingEl, index) =>
+            <Star
+                className={cn(s.star, {
+                    [s.filled]: index < rating,
+                    [s.editable]: isEditable
+                })}
+                onMouseEnter={() => changeDisplay(index + 1)}
+                onMouseLeave={() => changeDisplay(rate)}
+                onClick={() => changeRating(index + 1)}
+            />);
+        setRatingArr(updatedArray);
+    }, [isEditable, rate])
 
     useEffect(() => {
-        constructRating(rating)
-    }, [rating, constructRating])
+        constructRating(rate)
+    }, [constructRating]);
 
-
+    const someFunc = ()=>{}
 
     return (
-        <div> 
-            {ratingArray.map((r, i) => <span key={i}>{ r }</span>) }
+        <div>
+            {ratingArr.map((e, i) => (
+                <span key={i}>{e}</span>
+            ))}
         </div>
-    )
-}
+    );
+};
