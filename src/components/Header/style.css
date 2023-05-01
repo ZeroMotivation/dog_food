@@ -1,19 +1,17 @@
 .header {
+  position: sticky;
+  top: 0px;
   width: 100%;
   background-color: #FFE44D;
   padding: 12px 0;
   flex: 0 0 auto;
+  z-index: 2;
 }
 .header__wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 80px;
-}
-.header__left {
-  display: flex;
-  align-items: center;
-  gap: 20px;
 }
 
 @media (max-width: 700px) {
@@ -23,7 +21,6 @@
     gap: 20px;
   }
 }
-
 
 .header__liked {
 	fill: transparent;
@@ -52,4 +49,10 @@ position: relative;
 .header__link {
   text-decoration: none;
 
+}
+
+.header__right {
+  display: flex;
+  gap: 20px;
+  align-items: center;
 }

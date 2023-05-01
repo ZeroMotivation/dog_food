@@ -3,6 +3,7 @@
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	justify-content: space-between;
 	padding: 10px;
 	border-radius: 10px;
 }
@@ -24,6 +25,7 @@
 
 .card__image {
 	width: 100%;
+	height: 200px;
 	object-fit: contain;
 	margin-bottom: 16px;
 }
@@ -108,12 +110,11 @@
 	fill: transparent;
 	stroke: black;
 	stroke-width: 0.5px
-  }
+}
+
 .card__cart {
 	margin-top: auto;
 }
-
-
 
 .card__link {
 	text-decoration: none;
@@ -133,10 +134,13 @@
 
 .btn_type_primary {
 	background-color: #FFE44D;
+	transition: all 0.3s ease-in-out;
 }
+
 .btn_type_primary:hover {
 	background-color: #FFAA0D;
 	color: #F44336;
+	cursor: pointer;
 }
 
 .tag {

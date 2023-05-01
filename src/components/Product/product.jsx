@@ -6,16 +6,12 @@ import { ReactComponent as Save } from "./img/save.svg";
 import { ReactComponent as Basket } from './img/basket.svg'
 import { useEffect, useState } from "react";
 import { api } from "../../utils/api";
-import {
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Rating } from "../Rating/rating";
 import { Form } from "../Form/Form";
 import { useForm } from "react-hook-form";
 import { BaseButton } from "../BaseButton/BaseButton";
 import { openNotification } from "../Notifiaction/Notification";
-
-
 
 export const Product = ({ id, product, reviews, onProductLike, currentUser, onSendReview, onDeleteReview }) => {
   const [rate, setRate] = useState(3);
@@ -43,12 +39,9 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
     }
   }
 
-
   const navigate = useNavigate();
 
   const [isLikedProduct, setIsLikedProduct] = useState(false);
-
-
 
   const getUser = (id) => {
     if (!users.length) return 'User';
@@ -65,10 +58,8 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
     try {
       const res = await onDeleteReview(id);
       openNotification('success', 'Успешно', 'Ваш отзыв удален')
-      
     } catch (error) {
       openNotification('error', 'Ошибка', 'Ваш отзыв удалить не получилось')
-      
     }
   }
 
@@ -87,26 +78,19 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
     required: "review обязателен",
   });
 
-  const hideReviews = () => {
-    setReviewsProduct(() => [...reviews.slice(0, 2)])
-  }
+  const hideReviews = () => setReviewsProduct(() => [...reviews.slice(0, 2)])
 
-  const showMore = () => {
-    setReviewsProduct((state) => [...reviews.slice(0, state.length + 2)])
-  }
+  const showMore = () => setReviewsProduct((state) => [...reviews.slice(0, state.length + 2)])
 
   useEffect(() => {
     setReviewsProduct(() => reviews)
   }, [reviews])
 
-
-
   useEffect(() => {
     const isLiked = product?.likes?.some((el) => el === currentUser._id)
     setIsLikedProduct(isLiked)
+    console.log(product);
   }, [product.likes]);
-
-
 
   useEffect(() => {
     if (!product?.reviews) return;
@@ -120,11 +104,13 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
     api.getUsers().then((data) => setUsers(data))
   }, []);
 
-
   return (
     <>
       <div>
-        <span className='auth__info' onClick={() => navigate(-1)}> {'< '} Назад</span>
+        <span className='auth__info' onClick={() => navigate(-1)}>
+          <i class="fa-solid fa-chevron-left"></i>
+          Назад
+        </span>
         <h1>{product.name}</h1>
         <div className={s.rateInfo}>
           <span>Art <b>2388907</b></span>
@@ -158,27 +144,29 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
             >
               В корзину
             </button>
-          </div>
-          <button className={cn(s.favorite, { [s.favoriteActive]: isLikedProduct })} onClick={(e) => onLike(e)}>
-            <Save />
+            <button className={cn(s.favorite, { [s.favoriteActive]: isLikedProduct })} onClick={(e) => onLike(e)}>
+              <Save />
             <span>{isLikedProduct ? "В избранном" : "В избранное"}</span>
-          </button>
-          <div className={s.delivery}>
-            <img src={truck} alt="truck" />
-            <div className={s.right}>
-              <h3 className={s.name}>Доставка по всему Миру!</h3>
-              <p className={s.text}>
-                Доставка курьером — <span className={s.bold}>от 399 ₽</span>
-              </p>
-            </div>
+            </button>
           </div>
           <div className={s.delivery}>
-            <img src={quality} alt="quality" />
-            <div className={s.right}>
-              <h3 className={s.name}>Доставка по всему Миру!</h3>
-              <p className={s.text}>
-                Доставка курьером — <span className={s.bold}>от 399 ₽</span>
-              </p>
+            <div className={s.delivery__card}>
+              <img src={truck} alt="truck" />
+              <div className={s.right}>
+                <h3 className={s.name}>Доставка по всему Миру!</h3>
+                <p className={s.text}>
+                  Доставка курьером — <span className={s.bold}>от 399 ₽</span>
+                </p>
+              </div>
+            </div>
+            <div className={s.delivery__card}>
+              <img src={quality} alt="quality" />
+              <div className={s.right}>
+                <h3 className={s.name}>Доставка по всему Миру!</h3>
+                <p className={s.text}>
+                  Доставка курьером — <span className={s.bold}>от 399 ₽</span>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -212,7 +200,7 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
           </div>
         </div>
       </div>
-      <div>
+      <div className={s.product__bottom}>
         <div className={s.review__wrapper}>
           <button className="btn" onClick={() => setShowForm(true)}>Добавить Отзыв</button>
           {showForm &&
@@ -231,28 +219,29 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
             <span onClick={showMore}>Еще отзывы</span>
             <span onClick={hideReviews}>Скрыть отзывы</span>
           </div>
-
         </div>
-        {users && reviewsProduct
-          .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
-          .map((r) => <div key={r._id} className={s.review}>
-            <div className={s.review__author}>
-              <div className={s.review__info}>
-                <img className={s.review__avatar} src={getUser(r.author)?.avatar} alt='avatar' />
-                <span>{getUser(r.author)?.name ?? 'User'}</span>
-                <span className={s.review__date}>{new Date(r.created_at).toLocaleString('ru', options)}</span>
+        <div className={s.reviews}>
+          {users && reviewsProduct
+            .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+            .map((r) => <div key={r._id} className={s.review}>
+              <div className={s.review__author}>
+                <div className={s.review__info}>
+                  <img className={s.review__avatar} src={getUser(r.author)?.avatar} alt='avatar' />
+                  <span>{getUser(r.author)?.name ?? 'User'}</span>
+                  <span className={s.review__date}>{new Date(r.created_at).toLocaleString('ru', options)}</span>
+                </div>
+                <Rating rate={r.rating} isEditable={false} />
               </div>
-              <Rating rate={r.rating} isEditable={false} />
-            </div>
-            <div className={s.text}>
-              <span>
-                {r.text}
-              </span>
-              {currentUser._id === r.author &&
-                <Basket onClick={() => deleteReview(r._id)} className={s.text__img} />
-              }
-            </div>
-          </div>)}
+              <div className={s.text}>
+                <span>
+                  {r.text}
+                </span>
+                {currentUser._id === r.author &&
+                  <Basket onClick={() => deleteReview(r._id)} className={s.text__img} />
+                }
+              </div>
+            </div>)}
+        </div>
       </div>
     </>
   );

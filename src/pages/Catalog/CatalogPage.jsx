@@ -11,7 +11,7 @@ export const CatalogPage = () => {
 
   const { searchQuery, setSort } = useContext(UserContext);
   const { cards } = useContext(CardContext);
-  const [pageSize, setPageSize] = useState(10);
+  const [pageSize, setPageSize] = useState(9);
   const [page, setPage] = useState(1);
   const [paginatedCards, setPaginatedCards] = useState([]);
   const [optionsPage, setOptionsPage] = useState([]);
@@ -47,25 +47,21 @@ export const CatalogPage = () => {
         pageSize: pageSize,
       }).toString()
   });
-    
-  }, [navigate, page, pageSize]);
 
-  
+  }, [navigate, page, pageSize]);
 
   const sortedItems = [{ id: 'newest' }, { id: 'cheapest' }, { id: 'richest' }, { id: 'popular' }];
 
   const optionsSize = [
-    { value: 10, label: '10' },
-    { value: 20, label: '20' },
-    { value: 30, label: '30' },
-    { value: 50, label: '50' },
+    { value: 9, label: '9' },
+    { value: 18, label: '18' },
+    { value: 27, label: '27' },
+    { value: 36, label: '36' },
   ];
-
 
   const handleChange = (v) => {
     setPageSize(v)
   }
-
 
   return <>
     {searchQuery && (
@@ -82,7 +78,7 @@ export const CatalogPage = () => {
     <CardList cards={paginatedCards} />
     <Select style={{
       width: 120,
-    }} defaultValue={10} options={optionsSize} onChange={handleChange} className="" />
+    }} defaultValue={9} options={optionsSize} onChange={handleChange} className="" />
 
     <Select style={{
       width: 120,

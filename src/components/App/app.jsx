@@ -5,7 +5,7 @@ import "./index.sass";
 import { api } from "../../utils/api";
 import { findLike, useDebounce } from "../../utils/utils";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import { ProductPage } from "../../pages/ProductPage/product-page";
+import { ProductPage } from "../../pages/Product/ProductPage";
 import { CatalogPage } from "../../pages/Catalog/CatalogPage";
 import { UserContext } from "../../context/userContext";
 import { CardContext } from "../../context/cardContext";

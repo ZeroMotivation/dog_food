@@ -27,7 +27,7 @@ export const Card = ({
   return (
     <div ref={ref} className="card">
       <div className="card__sticky card__sticky_type_top-left">
-        <span className="card__discount">{discount}%</span>
+        {discount ? <span className="card__discount">{discount}%</span> : <></>}
       </div>
       <div className="card__sticky card__sticky_type_top-right">
         <button

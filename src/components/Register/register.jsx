@@ -11,7 +11,7 @@ export const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm({ mode: "onBlur" })
     const navigate = useNavigate()
-    
+
     const handleClickLoginButton = (e) => {
         e.preventDefault();
         navigate('/login', { replace: true, state: {backgroundLocation: location, initialPath}});
@@ -19,7 +19,7 @@ export const Register = () => {
     const sendRegisterApi = (data) => {
         console.log(data);
     }
- 
+
     const emailRegister = register('email', {
         required: {
             value: true,

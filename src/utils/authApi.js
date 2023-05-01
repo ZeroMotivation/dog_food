@@ -4,11 +4,11 @@ const config = {
       'content-type': 'application/json',
     },
   };
-  
+
   const onResponse = (res) => {
     return res.ok ? res.json() : Promise.reject('Error');
   };
-  
+
   class Api {
     constructor(data) {
       this._baseUrl = data.baseUrl;
@@ -48,6 +48,5 @@ const config = {
           }).then((res)=>onResponse(res))
     }
   }
-  
+
   export const authApi = new Api(config);
-  
