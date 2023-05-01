@@ -1,0 +1,15 @@
+.cart {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.cart__not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -6,19 +6,36 @@
 }
 
 .profile__user {
-  max-width: 740px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
+.form {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.forms {
+  display: flex;
+  justify-content: center;
+}
+
 .profile__avatar {
   display: flex;
   gap: 2rem;
   align-items: center;
-  padding: 3rem 0 2rem 0;
 }
+
 .profile__avatar-img {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
+}
+
+.profile__avatar-block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
 }

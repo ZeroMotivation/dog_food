@@ -11,9 +11,11 @@ export const Card = ({
   pictures,
   name,
   discount,
+  tags,
   price,
   setParentCounter,
   onProductLike,
+  productInCart,
 }) => {
   const { currentUser } = React.useContext(UserContext);
 
@@ -22,12 +24,17 @@ export const Card = ({
     onProductLike(product);
   };
 
+  const handleCartClick = () => {
+    productInCart();
+  }
+
   const ref = useRef();
 
   return (
     <div ref={ref} className="card">
       <div className="card__sticky card__sticky_type_top-left">
         {discount ? <span className="card__discount">{discount}%</span> : <></>}
+        {tags.length ? tags.map(t => <span className={`tag ${t === "new" ? "tag_type_new" : "tag_type_sale"}`}>{t}</span>) : <></>}
       </div>
       <div className="card__sticky card__sticky_type_top-right">
         <button
@@ -48,7 +55,7 @@ export const Card = ({
         </div>
       </Link>
       <span
-        onClick={() => setParentCounter((state) => state + 1)}
+        onClick={() => {setParentCounter(state => state + 1)}}
         className="card__card btn btn_type_primary"
       >
         В корзину

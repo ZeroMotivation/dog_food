@@ -1,4 +1,7 @@
 .favorites__back {
+    display: flex;
+    gap: 5px;
+    align-items: center;
     cursor: pointer;
     text-decoration: none;
     font-weight: 400;

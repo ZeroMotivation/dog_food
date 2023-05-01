@@ -68,7 +68,7 @@ export const CatalogPage = () => {
       <span className="navigation__page">{page}</span>
       <div className="navigation__right">
         <i className="fa-solid fa-chevron-right navigation__btn" onClick={() => page === TOTAL_PAGES ? setPage(1) : setPage(page + 1)}></i>
-        <i class="fa-solid fa-angles-right navigation__btn" onClick={() => setPage(TOTAL_PAGES)}></i>
+        <i className="fa-solid fa-angles-right navigation__btn" onClick={() => setPage(TOTAL_PAGES)}></i>
       </div>
     </div>
   </div>

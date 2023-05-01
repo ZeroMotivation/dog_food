@@ -5,7 +5,6 @@ import { useRef } from "react";
 
 export const Footer = () => {
   // const user = useContext(UserContext);
-
   const ref = useRef();
 
   const click = () => {

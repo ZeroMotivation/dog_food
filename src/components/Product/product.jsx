@@ -109,7 +109,7 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
     <>
       <div>
         <span className={s.auth__info} onClick={() => navigate(-1)}>
-          <i class="fa-solid fa-chevron-left"></i>
+          <i className="fa-solid fa-chevron-left"></i>
           Назад
         </span>
         <h1>{product.name}</h1>

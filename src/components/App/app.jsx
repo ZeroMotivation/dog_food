@@ -20,7 +20,7 @@ import { Register } from "../Auth/Register/Register";
 import { ResetPass } from "../Auth/ResetPassword/ResetPassword";
 import { parseJwt } from "../../utils/parseJWT";
 import { Profile } from "../Profile/Profile";
-import { Chart } from "../Chart/Chart";
+import { Cart } from "../../pages/CartPage/Cart";
 
 function App() {
   const [cards, setCards] = useState([]);
@@ -31,7 +31,6 @@ function App() {
   const [formData, setFormData] = useState([]);
   const [activeModal, setShowModal] = useState(false);
   const [isAuthentificated, setIsAuthentificated] = useState(false);
-
 
   const filteredCards = (products, id) => {
     return products;
@@ -45,21 +44,19 @@ function App() {
   };
 
   const debounceValueInApp = useDebounce(searchQuery, 500);
-  // функция по нажатию / отжатию лайка
+
   function handleProductLike(product) {
-    // понимаем , отлайкан ли продукт был
     const isLiked = findLike(product, currentUser);
     isLiked
-      ? // Если товар был с лайком, значит было действие по удалению лайка
+      ?
       api.deleteLike(product._id).then((newCard) => {
-        // newCard - карточка с уже изменненым количеством лайков
         const newCards = cards.map((e) =>
           e._id === newCard._id ? newCard : e
         );
         setCards(filteredCards(newCards, currentUser._id));
         setFavorites((state) => state.filter((f) => f._id !== newCard._id));
       })
-      : // Если не отлайкан, значит действие было совершено для добавления лайка.
+      :
       api.addLike(product._id).then((newCard) => {
         const newCards = cards.map((e) =>
           e._id === newCard._id ? newCard : e
@@ -187,6 +184,7 @@ function App() {
                 <Route path="faq" element={<FaqPage />} />
                 <Route path="favorites" element={<Favorites />} />
                 <Route path="profile" element={<Profile />} />
+                <Route path="cart" element={<Cart />} />
                   {authRoutes}
                 <Route path="*" element={<NotFound />} />
               </Routes>

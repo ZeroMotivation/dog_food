@@ -12,7 +12,8 @@ export const Favorites = () => {
   return (
     <div className="favorites">
       <span className="favorites__back" onClick={() => navigate(-1)}>
-        {"< "}Back
+        <i className="fa-solid fa-chevron-left"></i>
+        Назад
       </span>
       <h1>Избранное</h1>
       {!!favorites.length ? (

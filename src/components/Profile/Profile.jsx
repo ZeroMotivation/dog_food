@@ -13,7 +13,7 @@ export const Profile = () => {
 
     const { currentUser, setCurrentUser } = useContext(UserContext);
     const [isEdit, setIsEdit] = useState(false);
- 
+
     const {
         register,
         handleSubmit,
@@ -23,6 +23,7 @@ export const Profile = () => {
     console.log({ currentUser });
 
     const navigate = useNavigate();
+
     const handleChangeAvatar = async () => {
         await api.updateAvatar({ avatar: 'https://images.unsplash.com/photo-1535615615570-3b839f4359be?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80' })
     }
@@ -59,12 +60,14 @@ export const Profile = () => {
     }
 
     return <div className="profile">
-
-        <div className='auth__info' onClick={() => navigate(-1)}> {'<- '} Back</div>
+        <div className='auth__info' onClick={() => navigate(-1)}>
+            <i className="fa-solid fa-chevron-left"></i>
+            Back
+         </div>
         <h1>
             Мои данные
         </h1>
-        {currentUser?.name && currentUser?.about && (<>
+        {currentUser?.name && currentUser?.about && (<div className="forms">
             <Form submitForm={handleSubmit(sendProfileData)}>
                 <div className='profile__user'>
                     <input {...register('name', required)} defaultValue={currentUser.name} className='auth__input' type="text" placeholder='name' />
@@ -74,18 +77,15 @@ export const Profile = () => {
                     <BaseButton type="submit" color={'yellow'}>Отправить</BaseButton>
                 </div>
             </Form>
-
-
             <div className='profile__avatar'>
                 <Form submitForm={handleSubmit(sendAvatar)}>
-                    <div className='profile__user'>
+                    <div className='profile__avatar-block'>
                         <img className='profile__avatar-img' src={currentUser.avatar} alt="" />
                         <input className='auth__input' {...register('avatar')} defaultValue={currentUser?.avatar} placeholder='avatar' />
                         <BaseButton type="submit" color={'yellow'}>Отправить</BaseButton>
                     </div>
                 </Form>
-
-            </div></>)
+            </div></div>)
         }
     </div>
 }
