@@ -16,6 +16,7 @@ import { openNotification } from "../Notifiaction/Notification";
 export const Product = ({ id, product, reviews, onProductLike, currentUser, onSendReview, onDeleteReview }) => {
   const [rate, setRate] = useState(3);
   const [users, setUsers] = useState([]);
+  const [count, setCount] = useState(0);
   const [currentRating, setCurrentRating] = useState(0);
   const [reviewsProduct, setReviewsProduct] = useState(reviews);
   const [showForm, setShowForm] = useState(false);
@@ -134,9 +135,9 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
           )}
           <div className={s.controls}>
             <div className={s.controls__left}>
-              <button className={s.controls__minus}>-</button>
-              <span className={s.controls__num}>0</span>
-              <button className={s.controls__plus}>+</button>
+              <button className={s.controls__minus} onClick={() => count ? setCount(count - 1) : setCount(0)}>-</button>
+              <span className={s.controls__num}>{count}</span>
+              <button className={s.controls__plus} onClick={() => setCount(count + 1)}>+</button>
             </div>
             <button
               className={`btn btn_type_primary ${s.controls__cart} ${s.controls__cart__red}`}
@@ -171,7 +172,6 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
           </div>
         </div>
       </div>
-
       <div className={s.box}>
         <h2 className={s.title}>Описание</h2>
         <div>{product.description}</div>
@@ -226,8 +226,10 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
             .map((r) => <div key={r._id} className={s.review}>
               <div className={s.review__author}>
                 <div className={s.review__info}>
-                  <img className={s.review__avatar} src={getUser(r.author)?.avatar} alt='avatar' />
-                  <span>{getUser(r.author)?.name ?? 'User'}</span>
+                  <div className={s.author__data}>
+                    <img className={s.review__avatar} src={getUser(r.author._id)?.avatar} alt='avatar' />
+                    <span>{getUser(r.author._id)?.name ?? 'User'}</span>
+                  </div>
                   <span className={s.review__date}>{new Date(r.created_at).toLocaleString('ru', options)}</span>
                 </div>
                 <Rating rate={r.rating} isEditable={false} />
