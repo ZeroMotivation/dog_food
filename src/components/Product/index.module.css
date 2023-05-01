@@ -115,7 +115,6 @@
 .text {
 	font-size: 16px;
 	line-height: 20px;
-	padding: 10px;
 }
 
 .text:not(.text:last-child) {
@@ -169,12 +168,15 @@
 }
 
 .review {
+	box-sizing: border-box;
+	padding: 5px 10px;
 	border-bottom: 1px solid #b8b8b87a;
 }
 
 .review__info {
 	display: flex;
 	justify-content: space-between;
+	margin-bottom: 10px;
 }
 
 .review__avatar {
@@ -192,6 +194,12 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
+}
+
+.auth__info {
+	display: flex;
+	gap: 5px;
+	cursor: pointer;
 }
 
 .review__show_more {

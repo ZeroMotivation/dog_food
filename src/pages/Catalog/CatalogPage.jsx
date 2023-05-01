@@ -1,4 +1,3 @@
-import { Select } from 'antd';
 import { useContext, useEffect, useState } from 'react';
 import { createSearchParams, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { CardList } from '../../components/CardList/card-list';
@@ -16,9 +15,12 @@ export const CatalogPage = () => {
   const [paginatedCards, setPaginatedCards] = useState([]);
   const [optionsPage, setOptionsPage] = useState([]);
 
+  const PAGE_SIZE = 9;
+  const TOTAL_PAGES= Math.ceil(cards.length / PAGE_SIZE);
+
   useEffect(() => {
     const total = cards.length;
-    const pages = Math.ceil(total / pageSize);
+    const pages = Math.ceil(total / PAGE_SIZE);
     const pageCounter = new Array(pages).fill({}).map((e, i) => ({
       value: i + 1, label: `${i + 1}`
     }));
@@ -26,18 +28,11 @@ export const CatalogPage = () => {
     setPage(1);
   }, [cards, pageSize])
 
-
-
   useEffect(() => {
     const paginated = cards.slice(pageSize * (page - 1), pageSize * page);
     setPaginatedCards(paginated)
   }, [cards, pageSize, page]);
   const navigate = useNavigate();
-
-  const params = useParams();
-  const location = useLocation();
-
-  console.log(params);
 
   useEffect(() => {
     navigate({
@@ -52,18 +47,7 @@ export const CatalogPage = () => {
 
   const sortedItems = [{ id: 'newest' }, { id: 'cheapest' }, { id: 'richest' }, { id: 'popular' }];
 
-  const optionsSize = [
-    { value: 9, label: '9' },
-    { value: 18, label: '18' },
-    { value: 27, label: '27' },
-    { value: 36, label: '36' },
-  ];
-
-  const handleChange = (v) => {
-    setPageSize(v)
-  }
-
-  return <>
+  return <div className="content">
     {searchQuery && (
       <p>
         По запросу {searchQuery} найдено {cards?.length}
@@ -76,14 +60,16 @@ export const CatalogPage = () => {
       )}
     </div>
     <CardList cards={paginatedCards} />
-    <Select style={{
-      width: 120,
-    }} defaultValue={9} options={optionsSize} onChange={handleChange} className="" />
-
-    <Select style={{
-      width: 120,
-    }} defaultValue={1} value={page} options={optionsPage} onChange={setPage} className="" />
-
-    {/* <select></select> */}
-  </>
+    <div className="navigation">
+      <div className="navigation__left">
+        <i className="fa-solid fa-angles-left navigation__btn" onClick={() => setPage(1)}></i>
+        <i className="fa-solid fa-chevron-left navigation__btn" onClick={() => page === 1 ? setPage(TOTAL_PAGES) : setPage(page - 1)}></i>
+      </div>
+      <span className="navigation__page">{page}</span>
+      <div className="navigation__right">
+        <i className="fa-solid fa-chevron-right navigation__btn" onClick={() => page === TOTAL_PAGES ? setPage(1) : setPage(page + 1)}></i>
+        <i class="fa-solid fa-angles-right navigation__btn" onClick={() => setPage(TOTAL_PAGES)}></i>
+      </div>
+    </div>
+  </div>
 };

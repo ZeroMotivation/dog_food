@@ -182,20 +182,13 @@ function App() {
                 <Route path="/" element={<CatalogPage />}>
                   {/* <Route path="/:page" element={<CatalogPage />}></Route> */}
                 </Route>
-                <Route
-                  path="product/:productId"
-                  element={<ProductPage />}
-                ></Route>
-                <Route
-                  path="fakeRout/:productId"
-                  element={<ProductPage />}
-                ></Route>
-                <Route path="faq" element={<FaqPage />}></Route>
-                <Route path="favorites" element={<Favorites />}></Route>
-                <Route path="profile" element={<Profile />}></Route>
-                <Route path="chart" element={<Chart />}></Route>
-                {authRoutes}
-                <Route path="*" element={<NotFound />}></Route>
+                <Route path="product/:productId" element={<ProductPage />} />
+                <Route path="fakeRout/:productId" element={<ProductPage />} />
+                <Route path="faq" element={<FaqPage />} />
+                <Route path="favorites" element={<Favorites />} />
+                <Route path="profile" element={<Profile />} />
+                  {authRoutes}
+                <Route path="*" element={<NotFound />} />
               </Routes>
             </main>
             :
