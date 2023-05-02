@@ -20,7 +20,7 @@ export const Profile = () => {
         formState: { errors },
     } = useForm({ mode: "onSubmit" });
 
-    console.log({ currentUser });
+    console.log(currentUser);
 
     const navigate = useNavigate();
 
@@ -29,10 +29,8 @@ export const Profile = () => {
     }
 
     const sendProfileData = async (data) => {
-        console.log(data);
         try {
             const newUser = await api.updateUserInfo({ name: data.name, about: data.about });
-            console.log({ newUser });
             setCurrentUser({ ...newUser })
             openNotification('success', 'Успешно', 'Данные успешно изменены')
         } catch (error) {
@@ -85,7 +83,8 @@ export const Profile = () => {
                         <BaseButton type="submit" color={'yellow'}>Отправить</BaseButton>
                     </div>
                 </Form>
-            </div></div>)
+            </div>
+            </div>)
         }
     </div>
 }

@@ -31,11 +31,10 @@ function App() {
   const [formData, setFormData] = useState([]);
   const [activeModal, setShowModal] = useState(false);
   const [isAuthentificated, setIsAuthentificated] = useState(false);
+  const [cart, setToCart] = useState([]);
 
   const filteredCards = (products, id) => {
     return products;
-    // console.log({products, id});
-    // return products.filter((e) => e.author._id === id);
   };
   const handleSearch = (search) => {
     api
@@ -72,18 +71,13 @@ function App() {
     handleSearch(debounceValueInApp);
   }, [debounceValueInApp]);
 
-  // Первоначальная загрузка карточек/продуктов/постов/сущностей и данных юзера
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getProductList()]).then(
       ([userData, productData]) => {
-        // сеттим юзера
         setCurrentUser(userData);
         const items = filteredCards(productData.products, userData._id);
-        // сеттим карточки
         setCards(items);
-        // получаем отлайканные нами карточки
         const fav = items.filter((e) => findLike(e, userData));
-        // сеттим карточки в избранный стейт
         setFavorites(fav);
       }
     );
@@ -127,20 +121,18 @@ function App() {
     handleProductLike,
     favorites,
     setFavorites,
+    cart,
+    setToCart,
   };
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    // const authPath = ['/reset-password', '/register']
     const token = localStorage.getItem('token')
     const uncodedToken = parseJwt(token);
     if (uncodedToken?._id) {
       setIsAuthentificated(true)
     }
-    // else if (!authPath.includes(location.pathname)) {
-    //   navigate('/login');
-    // }
   }, [navigate]);
 
   const authRoutes = <> <Route
@@ -204,17 +196,3 @@ function App() {
 }
 
 export default App;
-// useEffect - для побочных действий
-// useEffect(()=>{}) - update на каждое изменение компонента.
-// useEffect(()=>{},[state]) - update на каждое изменение конкретного state.
-// useEffect(()=>{},[]) - update в самом начале
-
-// Чистая функция - это функция , которая при одних и тех же входных параметрах возвращает одинаковый результат.
-
-// <BrowserRouter>
-//  <Routes>
-//   <Route path="/" element={<Dashboard />}>
-//   <Route path="product" element={<AboutPage />} />
-// </Routes>
-// </BrowserRouter>
-// Asdfgk1236

@@ -160,9 +160,17 @@
 .tag_type_sale {
 	background-color: #01A54E;
 }
-/* svg {
-    fill: red;
-} */
+
 .card__liked > svg {
   fill: red;
+}
+
+.cross {
+	font-size: 16px;
+	text-decoration: line-through;
+}
+
+.card__new-price {
+	font-size: 24px;
+	color: red;
 }

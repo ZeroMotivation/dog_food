@@ -212,7 +212,7 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
                 className={s.review__form__text}
                 {...textRegister}
               />
-              <BaseButton style={{ width: '200px' }} color={'yellow'} type="submit">send Review</BaseButton>
+              <BaseButton className={s.review__add} type="submit">send Review</BaseButton>
             </Form>
           }
           <div className={s.review__show_more}>
@@ -238,8 +238,8 @@ export const Product = ({ id, product, reviews, onProductLike, currentUser, onSe
                 <span>
                   {r.text}
                 </span>
-                {currentUser._id === r.author &&
-                  <Basket onClick={() => deleteReview(r._id)} className={s.text__img} />
+                {currentUser._id === r.author._id &&
+                  <Basket onClick={() => deleteReview(r._id)} className={s.basket} />
                 }
               </div>
             </div>)}

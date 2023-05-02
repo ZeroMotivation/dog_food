@@ -49,7 +49,6 @@ export const ProductPage = () => {
   }, [id?.productId]);
 
   useEffect(() => {
-    console.log({ product });
     if (product?.reviews && Array.isArray(product?.reviews)) {
       setReviews(() => [
         ...product.reviews?.sort(

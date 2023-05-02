@@ -4,12 +4,30 @@
 }
 
 .cart__cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .cart__not-found {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 10px;
+  font-size: 24px;
+  color: #c5c5c5b6
+}
+
+.cart__sad {
+  font-size: 72px;
+}
+
+.cart__back-btn {
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.25s ease-in-out;
+}
+
+.cart__back-btn:hover {
+  color: #868686cb;
 }

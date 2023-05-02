@@ -13,6 +13,17 @@
 	margin-bottom: 40px;
 }
 
+.review__form {
+	display: flex;
+	flex-direction: column;
+
+}
+
+.review__add {
+	width: 200px;
+	color: #FFE44D;
+}
+
 .productTitle {
 	margin-top: 0;
 	font-weight: 800;
@@ -113,6 +124,8 @@
 }
 
 .text {
+	display :flex;
+	justify-content: space-between;
 	font-size: 16px;
 	line-height: 20px;
 }
@@ -248,6 +261,13 @@
 
 .favoriteActive svg {
 	fill: #000000;
+}
+
+.basket {
+	width: 30px;
+	height: 30px;
+	align-self: flex-end;
+	cursor: pointer;
 }
 
 @media (max-width: 1000px) {

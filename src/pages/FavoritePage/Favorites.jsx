@@ -6,7 +6,6 @@ import "./index.css";
 
 export const Favorites = () => {
   const { favorites } = useContext(CardContext);
-
   const navigate = useNavigate();
 
   return (

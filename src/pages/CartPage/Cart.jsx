@@ -6,7 +6,7 @@ import { CardList } from "../../components/CardList/card-list";
 import "./index.css";
 
 export function Cart() {
-  const {isInCart} = useContext(CardContext);
+  const { cart } = useContext(CardContext);
   const navigate = useNavigate();
 
   return (
@@ -17,13 +17,13 @@ export function Cart() {
       </span>
       <h2 className="cart__title">Корзина</h2>
       <div className="cart__cards">
-        { !isInCart.length ?
-          <CardList cards={isInCart} /> :
-          <div className="cart__not-found">
-            <i className="fa-solid fa-face-frown sad"></i>
+        { cart.length ?
+          <CardList cards={cart} /> :
+          (<div className="cart__not-found">
+            <i className="fa-solid fa-face-frown cart__sad"></i>
             <span>В корзине ничего нет</span>
-            <span className="cart__back-bnt" onClick={() => navigate(-1)}>Назад</span>
-          </div>
+            <span className="cart__back-btn" onClick={() => navigate(-1)}>Назад</span>
+          </div>)
         }
       </div>
     </div>
